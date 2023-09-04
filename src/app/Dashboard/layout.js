@@ -79,17 +79,17 @@ export default function RootLayout({ children }) {
             }}
           />
           {!isLogged && (
-            <Link className="btn btn-danger mx-4" href={"./Login"}>
+            <Link className="btn btn-danger mx-4" replace={true} href={"/Login"}>
               Login
             </Link>
           )}
           {!isLogged && (
-            <Link className="btn btn-danger mx-1 " href={"./Register"}>
+            <Link className="btn btn-danger mx-1 " replace={true} href={"./Register"}>
               Register
             </Link>
           )}
           {isLogged && (
-            <Link className="btn btn-danger mx-0 " href={"./Login"}>
+            <Link className="btn btn-danger mx-0 " replace={true} href={"./Login"}>
               Logout
             </Link>
           )}

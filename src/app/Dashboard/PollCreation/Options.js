@@ -7,7 +7,7 @@ const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const Options = () => {
-  const [pullForm, setPullForm] = useState();
+  const [pullForm, setPullForm] = useState([{ id: 1, option: "" },{ id: 2, option: "" }]);
   return (
     <div>
       <Form
@@ -40,21 +40,25 @@ const Options = () => {
         >
           <Input />
         </Form.Item>
+        {pullForm.map((o) => {
+          return (
+            <Form.Item
+              label={"Option "+o.id}
+              name="options"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the Options for the pull",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          );
+        })}
 
-        <Form.Item
-          label="Options for the Pull"
-          name="options"
-          rules={[
-            {
-              required: true,
-              message: "Please input the Options for the pull",
-            },
-          ]}
-        >
-          <Input />
-          <Input style={{ marginTop: 5 }} />
-          <Button style={{ marginLeft: "80%" }}>Add</Button>
-        </Form.Item>
+        <Button style={{ marginLeft: "80%" }}>Add</Button>
+
         <Form.Item
           wrapperCol={{
             offset: 8,
