@@ -13,7 +13,7 @@ const login = () => {
       <div className="cf">
         <Card
           title="Login"
-          style={{ width: 300, height: 320, marginTop: "20%" }}
+          style={{ width: 340, height: 310, marginTop: "20%" }}
         >
           <Form
             name="basic"
