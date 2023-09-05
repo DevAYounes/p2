@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button, Form, Input, Card } from "antd";
-import Options from "./Options";
+import OptionsForms from "./OptionsForms";
 
 const PollCreation = () => {
   return (
@@ -12,7 +12,7 @@ const PollCreation = () => {
           <div style={{ color: "red", display: "inline-block" }}>Pull</div>
         </div>
         <div style={{ marginTop: 30 }}>
-          <Options />
+          <OptionsForms />
         </div>
       </Card>
     </div>

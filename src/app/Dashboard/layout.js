@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         break;
       case "2":
         break;
-      case "3":
+      case "4":
         router.push("/Dashboard/PollCreation");
         break;
     }
@@ -50,11 +50,16 @@ export default function RootLayout({ children }) {
             },
             {
               key: "2",
+              icon: <UploadOutlined />,
+              label: "Active Polls",
+            },
+            {
+              key: "3",
               icon: <VideoCameraOutlined />,
               label: "My Polls",
             },
             {
-              key: "3",
+              key: "4",
               icon: <UploadOutlined />,
               label: "Create new poll",
             },

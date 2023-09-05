@@ -1,12 +1,14 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, DatePicker } from "antd";
 import { useState } from "react";
+
+const { RangePicker } = DatePicker;
 const onFinish = (values) => {
   console.log("Success:", values);
 };
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
-const Options = () => {
+const OptionsForms = () => {
   const [pullForm, setPullForm] = useState([
     { id: 1, option: "" },
     { id: 2, option: "" },
@@ -44,6 +46,19 @@ const Options = () => {
         >
           <Input />
         </Form.Item>
+        <Form.Item
+          label="Time"
+          name="Time"
+          rules={[
+            {
+              required: true,
+              message: "Please input the Pull",
+            },
+          ]}
+        >
+          <RangePicker showTime />
+        </Form.Item>
+
         {pullForm.map((o) => {
           return (
             <Form.Item
@@ -84,4 +99,4 @@ const Options = () => {
     </div>
   );
 };
-export default Options;
+export default OptionsForms;
