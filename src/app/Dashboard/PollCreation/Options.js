@@ -7,7 +7,13 @@ const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const Options = () => {
-  const [pullForm, setPullForm] = useState([{ id: 1, option: "" },{ id: 2, option: "" }]);
+  const [pullForm, setPullForm] = useState([
+    { id: 1, option: "" },
+    { id: 2, option: "" },
+  ]);
+  const addOption = () => {
+    setPullForm((current) => [...current, { id: 3, option: "a" }]);
+  };
   return (
     <div>
       <Form
@@ -21,9 +27,7 @@ const Options = () => {
         style={{
           maxWidth: 600,
         }}
-        initialValues={{
-          remember: true,
-        }}
+        initialValues={{}}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -43,7 +47,7 @@ const Options = () => {
         {pullForm.map((o) => {
           return (
             <Form.Item
-              label={"Option "+o.id}
+              label={"Add Option "}
               name="options"
               rules={[
                 {
@@ -57,7 +61,14 @@ const Options = () => {
           );
         })}
 
-        <Button style={{ marginLeft: "80%" }}>Add</Button>
+        <Button
+          onClick={() => {
+            addOption();
+          }}
+          style={{ marginLeft: "80%" }}
+        >
+          Add
+        </Button>
 
         <Form.Item
           wrapperCol={{
