@@ -1,8 +1,29 @@
 "use client";
+import axios from "axios";
 import "./Login.css";
+import { useRouter } from "next/navigation";
 import { Button, Checkbox, Form, Input, Card } from "antd";
+import Globals from "../../../Globals";
+
 const login = () => {
+  const url = "http://localhost:2000/";
+  const router = useRouter();
   const onFinish = (values) => {
+    {
+      /* .env doesn't work */
+      /* const BASE_URL = process.env.BASE_URL;*/
+    }
+    axios
+      .post(url + "users/login", values)
+      .then(function (response) {
+        console.log(response);
+        Globals.logged = true;
+        router.push("/Dashboard");
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Email/Password is wrong please try again");
+      });
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
@@ -13,7 +34,7 @@ const login = () => {
       <div className="cf">
         <Card
           title="Login"
-          style={{ width: 340, height: 310, marginTop: "20%" }}
+          style={{ width: 500, height: 310, marginTop: "20%" }}
         >
           <Form
             name="basic"
@@ -34,12 +55,12 @@ const login = () => {
             autoComplete="off"
           >
             <Form.Item
-              label="Username"
-              name="username"
+              label="Email"
+              name="email"
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Please input your Email!",
                 },
               ]}
             >
@@ -72,12 +93,20 @@ const login = () => {
 
             <Form.Item
               wrapperCol={{
-                offset: 8,
+                offset: 15,
                 span: 16,
               }}
             >
               <Button type="primary" htmlType="submit">
                 Submit
+              </Button>
+              <Button
+                className="mx-2"
+                onClick={() => {
+                  router.push("./Dashboard");
+                }}
+              >
+                Cancel
               </Button>
             </Form.Item>
           </Form>

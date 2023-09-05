@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Globals from "../../../Globals";
 
 import {
   MenuFoldOutlined,
@@ -18,7 +19,9 @@ export default function RootLayout({ children }) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [isLogged, Login] = useState(false);
+
+  const isLogged = Globals.logged;
+  debugger;
   const router = useRouter();
 
   const onSelect = (e) => {
@@ -28,8 +31,19 @@ export default function RootLayout({ children }) {
         break;
       case "2":
         break;
+      case "3":
+        if (isLogged) {
+          router.push("/Dashboard/PollCreation");
+        } else {
+          router.push("/Login");
+        }
+        break;
       case "4":
-        router.push("/Dashboard/PollCreation");
+        if (isLogged) {
+          router.push("/Dashboard/PollCreation");
+        } else {
+          router.push("/Login");
+        }
         break;
     }
   };
@@ -57,11 +71,13 @@ export default function RootLayout({ children }) {
               key: "3",
               icon: <VideoCameraOutlined />,
               label: "My Polls",
+              danger: !isLogged,
             },
             {
               key: "4",
               icon: <UploadOutlined />,
               label: "Create new poll",
+              danger: !isLogged,
             },
           ]}
         />
@@ -84,22 +100,38 @@ export default function RootLayout({ children }) {
             }}
           />
           {!isLogged && (
-            <Link className="btn btn-danger mx-4" replace={true} href={"/Login"}>
+            <Link
+              className="btn btn-danger mx-4"
+              replace={true}
+              href={"/Login"}
+            >
               Login
             </Link>
           )}
           {!isLogged && (
-            <Link className="btn btn-danger mx-1 " replace={true} href={"./Register"}>
+            <Link
+              className="btn btn-danger mx-1 "
+              replace={true}
+              href={"./Register"}
+            >
               Register
             </Link>
           )}
+
           {isLogged && (
-            <Link className="btn btn-danger mx-0 " replace={true} href={"./Login"}>
+            <Link
+              onClick={() => {
+                Globals.logged = !Globals.logged;
+              }}
+              className="btn btn-danger mx-0 "
+              replace={true}
+              href={"./Login"}
+            >
               Logout
             </Link>
           )}
         </Header>
-        <Content 
+        <Content
           style={{
             margin: "24px 16px",
             padding: 24,

@@ -1,15 +1,35 @@
 "use client";
 import "./Register.css";
 import React from "react";
-import { Card, Button, Checkbox, Form, Input } from "antd";
+import { Card, Button, Form, Input } from "antd";
 import { Image } from "antd";
-export default function Home() {
+import axios from "axios";
+import { useRouter } from "next/navigation";
+export default async function Home() {
+
+
+  {
+    /* .env doesn't work */
+    /* const BASE_URL = process.env.BASE_URL;*/
+  }
+
+  const url = "http://localhost:2000/";
+  const router = useRouter();
   const onFinish = (values) => {
-    console.log("Success:", values);
+    axios
+      .post(url + "users/register", values)
+      .then(function (response) {
+        console.log(response);
+        router.push("/Login");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <div className="c1 ">
       <div className="register-form">
@@ -21,7 +41,7 @@ export default function Home() {
             style={{ marginLeft: 100 }}
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
           />
-          <div style={{marginTop:30}}>
+          <div style={{ marginTop: 30 }}>
             <Form
               name="basic"
               labelCol={{
@@ -42,7 +62,7 @@ export default function Home() {
             >
               <Form.Item
                 label="Email"
-                name="Email"
+                name="email"
                 rules={[
                   {
                     required: true,
@@ -66,12 +86,12 @@ export default function Home() {
                 <Input.Password />
               </Form.Item>
               <Form.Item
-                label="Phone"
-                name="Phone"
+                label="Full name"
+                name="fullName"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Phone!",
+                    message: "Please input your Name!",
                   },
                 ]}
               >
@@ -84,7 +104,11 @@ export default function Home() {
                   span: 16,
                 }}
               >
-                <Button style={{marginLeft:"70%"}} type="primary" htmlType="submit">
+                <Button
+                  style={{ marginLeft: "70%" }}
+                  type="primary"
+                  htmlType="submit"
+                >
                   Submit
                 </Button>
               </Form.Item>

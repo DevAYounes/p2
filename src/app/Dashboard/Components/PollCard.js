@@ -11,7 +11,7 @@ const PollCard = (props) => {
     title: props.title,
     timeRemainning: props.timeRemainning,
   };
-  debugger;
+
   const [value, setValue] = useState(1);
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
@@ -23,7 +23,6 @@ const PollCard = (props) => {
         cardDetails.options[index].votes + cardDetails.options[index + 1].votes;
       const percentage = o.votes / AllVotes;
       return parseInt(percentage * 100);
-
     }
   };
   return (
@@ -48,8 +47,15 @@ const PollCard = (props) => {
               </Radio.Group>
             </div>
             <br></br>
-
-            <Button className="btn btn-primary px-4 mt-3">Submit</Button>
+            <div class="btn disabled btn-warning">
+              Ends in {cardDetails.timeRemainning}
+            </div>
+            <Button
+              className="btn btn-primary px-3 py-1 mt-4"
+              style={{ marginLeft: 125 }}
+            >
+              Submit
+            </Button>
           </div>
         )}
         {!isLogged && (
@@ -62,6 +68,9 @@ const PollCard = (props) => {
                 </div>
               );
             })}
+            <div class="btn disabled btn-warning mt-1">
+              Ends in {cardDetails.timeRemainning}
+            </div>
           </div>
         )}
       </Card>

@@ -1,6 +1,5 @@
 import { Button, Form, Input, DatePicker } from "antd";
 import { useState } from "react";
-
 const { RangePicker } = DatePicker;
 const onFinish = (values) => {
   console.log("Success:", values);
@@ -35,7 +34,19 @@ const OptionsForms = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="About"
+          label="Title"
+          name="Title"
+          rules={[
+            {
+              required: true,
+              message: "Please input the Pull",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Description"
           name="description"
           rules={[
             {
