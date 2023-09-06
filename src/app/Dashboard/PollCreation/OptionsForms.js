@@ -1,16 +1,26 @@
 import { Button, Form, Input, DatePicker } from "antd";
 import axios from "axios";
 import { useState } from "react";
+import jwt_decode from "jwt-decode";
+import toast, { Toaster } from "react-hot-toast";
 const BASE_URL = "http://localhost:2000/";
 const { RangePicker } = DatePicker;
 
+{
+  /*Start of Component*/
+}
 const OptionsForms = () => {
+  var token = localStorage.getItem("UserToken");
+  var decoded = jwt_decode(token);
+  var email = decoded.subject.email;
+
   const onFinish = (values) => {
     const namedData = values;
     namedData.Options = pullForm;
 
-    axios.post(BASE_URL + "addPolls", namedData).then((res) => {
+    axios.post(BASE_URL + "addPolls/" + email, namedData).then((res) => {
       console.log("Success:", res);
+      toast.success("Successfully Added your Poll!");
     });
   };
   const onFinishFailed = (errorInfo) => {
@@ -31,6 +41,7 @@ const OptionsForms = () => {
 
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
       <Form
         disabled={false}
         name="basic"
