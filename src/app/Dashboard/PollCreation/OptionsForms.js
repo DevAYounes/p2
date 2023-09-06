@@ -1,23 +1,38 @@
 import { Button, Form, Input, DatePicker } from "antd";
+import axios from "axios";
 import { useState } from "react";
+const BASE_URL = "http://localhost:2000/";
 const { RangePicker } = DatePicker;
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+
 const OptionsForms = () => {
-  const [pullForm, setPullForm] = useState([
-    { id: 1, option: "" },
-    { id: 2, option: "" },
-  ]);
-  const addOption = () => {
-    setPullForm((current) => [...current, { id: 3, option: "a" }]);
+  const onFinish = (values) => {
+    const namedData = values;
+    namedData.Options = pullForm;
+
+    axios.post(BASE_URL + "addPolls", namedData).then((res) => {
+      console.log("Success:", res);
+    });
   };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const [pullForm, setPullForm] = useState([
+    { value: 1, votes: 0, submited: false, option: "" },
+    { value: 1, votes: 0, submited: false, option: "" },
+  ]);
+
+  const addOption = () => {
+    setPullForm((current) => [
+      ...current,
+      { value: 1, votes: 0, submited: false, option: "" },
+    ]);
+  };
+
   return (
     <div>
       <Form
+        disabled={false}
         name="basic"
         labelCol={{
           span: 8,
@@ -47,11 +62,11 @@ const OptionsForms = () => {
         </Form.Item>
         <Form.Item
           label="Description"
-          name="description"
+          name="Description"
           rules={[
             {
               required: true,
-              message: "Please input the Pull",
+              message: "Please input the Pull description",
             },
           ]}
         >
@@ -63,26 +78,28 @@ const OptionsForms = () => {
           rules={[
             {
               required: true,
-              message: "Please input the Pull",
+              message: "Please input the Pull time",
             },
           ]}
         >
           <RangePicker showTime />
         </Form.Item>
-
-        {pullForm.map((o) => {
+        {pullForm.map((o, i) => {
           return (
             <Form.Item
-              label={"Add Option "}
-              name="options"
+              label="Option"
               rules={[
                 {
                   required: true,
-                  message: "Please input the Options for the pull",
+                  message: "Please input the Pull time",
                 },
               ]}
             >
-              <Input />
+              <Input
+                onChange={(c) => {
+                  o.option = c.target.value;
+                }}
+              />
             </Form.Item>
           );
         })}

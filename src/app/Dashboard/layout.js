@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   } = theme.useToken();
 
   const isLogged = Globals.logged;
-  debugger;
+ 
   const router = useRouter();
 
   const onSelect = (e) => {

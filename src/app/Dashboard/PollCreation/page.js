@@ -1,8 +1,15 @@
 "use client";
 import React from "react";
-import { Button, Form, Input, Card } from "antd";
-import OptionsForms from "./OptionsForms";
+import Globals from "../../../../Globals";
 
+import { Card } from "antd";
+import OptionsForms from "./OptionsForms";
+import { redirect } from "next/navigation";
+
+
+if(!Globals.logged){
+  redirect("/Dashboard");
+}
 const PollCreation = () => {
   return (
     <div>
@@ -14,6 +21,7 @@ const PollCreation = () => {
         <div style={{ marginTop: 30 }}>
           <OptionsForms />
         </div>
+        
       </Card>
     </div>
   );

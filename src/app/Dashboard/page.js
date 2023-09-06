@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import PollCard from "./Components/PollCard";
-import { Col, Row } from "antd";
-import Globals from "../../../Globals"
+import { Col, Input, Row } from "antd";
+import Globals from "../../../Globals";
 const Dashboard = () => {
-
+  const [a,setA] = useState([{ t: "1" }, { t: "2" }, { t: "3" }]);
   const isLogged = Globals.logged;
 
   const [pollCards, setPollCards] = useState([
@@ -38,6 +38,16 @@ const Dashboard = () => {
         { option: "Assassin's creed", value: 2, votes: 11 },
       ],
     },
+    {
+      Title: "Best Match",
+      pollMaker: "Mohammad Salah",
+      Description: "In your opinion What is the best game",
+      Time: 4 + "h",
+      Options: [
+        { option: "God of war", value: 1, votes: 5 },
+        { option: "Assassin's creed", value: 2, votes: 11 },
+      ],
+    },
   ]);
   return (
     <div>
@@ -50,18 +60,21 @@ const Dashboard = () => {
       <Row style={{ marginTop: 20 }} gutter={16}>
         {pollCards.map((c, index) => {
           return (
-            <Col span={8}>
-              <div style={{ marginTop: 15 }}>
-                <PollCard
-                  pollMaker={c.pollMaker}
-                  description={c.Description}
-                  isLogged={isLogged}
-                  options={c.Options}
-                  title={c.Title}
-                  timeRemainning={c.Time}
-                />
-              </div>
-            </Col>
+            <div style={{ minWidth: 400 }}>
+              <Col>
+                <div style={{ marginTop: 15 }}>
+                  <PollCard
+                    pollMaker={c.pollMaker}
+                    description={c.Description}
+                    isLogged={isLogged}
+                    options={c.Options}
+                    title={c.Title}
+                    timeRemainning={c.Time}
+                  />
+                </div>
+              </Col>
+            
+            </div>
           );
         })}
       </Row>
