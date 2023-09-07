@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import PollCard from "./Components/PollCard";
-import { Col, Input, Row } from "antd";
+import { Col, Row } from "antd";
 import Globals from "../../../Globals";
+
 const Dashboard = () => {
-  const [a,setA] = useState([{ t: "1" }, { t: "2" }, { t: "3" }]);
+ 
   const isLogged = Globals.logged;
 
   const [pollCards, setPollCards] = useState([
@@ -73,7 +74,6 @@ const Dashboard = () => {
                   />
                 </div>
               </Col>
-            
             </div>
           );
         })}
