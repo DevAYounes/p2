@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   } = theme.useToken();
 
   const isLogged = Globals.logged;
- 
+
   const router = useRouter();
 
   const onSelect = (e) => {
@@ -30,10 +30,11 @@ export default function RootLayout({ children }) {
         router.push("/Dashboard");
         break;
       case "2":
+        router.push("/Dashboard/ActivePolls");
         break;
       case "3":
         if (isLogged) {
-          router.push("/Dashboard/PollCreation");
+          router.push("/Dashboard/MyPolls");
         } else {
           router.push("/Login");
         }

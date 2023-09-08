@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Radio, Button, Progress } from "antd";
-
+import axios from "axios";
+const BASE_URL = "http://localhost:2000/";
 const PollCard = (props) => {
   const isLogged = props.isLogged;
 
@@ -16,6 +17,18 @@ const PollCard = (props) => {
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
+  };
+  const submitVote = () => {
+    var title = cardDetails.title
+    
+    axios
+      .post(BASE_URL + "submit/"+value+"/"+title)
+      .then((r) => {
+        console.log(r.data[0]);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   const calcPercentage = (o, i) => {
     for (let index = 0; index < cardDetails.options.length; index++) {
@@ -37,9 +50,9 @@ const PollCard = (props) => {
           <div id="loggedUsers">
             <div style={{ marginTop: 30 }}>
               <Radio.Group onChange={onChange} value={value}>
-                {cardDetails.options.map((o) => {
+                {cardDetails.options.map((o,i) => {
                   return (
-                    <div style={{ display: "block" }}>
+                    <div key={i} style={{ display: "block" }}>
                       <Radio value={o.value}>{o.option}</Radio>
                     </div>
                   );
@@ -47,10 +60,13 @@ const PollCard = (props) => {
               </Radio.Group>
             </div>
             <br></br>
-            <div class="btn disabled btn-warning">
+            <div className="btn disabled btn-warning">
               Ends in {cardDetails.timeRemainning}
             </div>
             <Button
+              onClick={() => {
+                submitVote();
+              }}
               className="btn btn-primary px-3 py-1 mt-4"
               style={{ marginLeft: 125 }}
             >
@@ -62,13 +78,13 @@ const PollCard = (props) => {
           <div style={{ marginTop: 30 }}>
             {cardDetails.options.map((o, i) => {
               return (
-                <div>
+                <div key={i}>
                   {o.option}
                   <Progress percent={calcPercentage(o, i)} status="active" />
                 </div>
               );
             })}
-            <div class="btn disabled btn-warning mt-1">
+            <div className="btn disabled btn-warning mt-1">
               Ends in {cardDetails.timeRemainning}
             </div>
           </div>
