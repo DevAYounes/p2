@@ -24,7 +24,7 @@ const OptionsForms = () => {
   const onFinish = (values) => {
     const namedData = values;
     var TheDate = new Date(namedData.Time);
-    namedData.Time=TheDate.toLocaleString().split(',')[0]
+    namedData.Time = TheDate.toLocaleString().split(",")[0];
     namedData.Options = pullForm;
     namedData.pollMaker = email;
 

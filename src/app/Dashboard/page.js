@@ -19,8 +19,8 @@ const Dashboard = () => {
         for (let index = 0; index < filtered.length; index++) {
           var merged = filtered[0].concat(filtered[index]);
         }
-      
         setPollCards(merged);
+
       })
       .catch((error) => {
         console.log(error);
