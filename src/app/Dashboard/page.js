@@ -8,19 +8,25 @@ const BASE_URL = "http://localhost:2000/";
 
 const Dashboard = () => {
   const [pollCards, setPollCards] = useState([]);
-  var filtered;
+
   useEffect(() => {
     axios
       .get(BASE_URL + "getPolls/")
       .then((data) => {
-        filtered = data.data.filter((f) => {
-          return f.length;
-        });
-        for (let index = 0; index < filtered.length; index++) {
-          var merged = filtered[0].concat(filtered[index]);
+        const reData = data.data;
+          // var filtered;
+        // filtered = data.data.filter((f) => {
+        //   return f.length;
+        // });
+        // for (let index = 0; index < filtered.length; index++) {
+        //   var merged = filtered[0].concat(filtered[index]);
+        // }
+        var i;
+        for (i = 0; i < reData.length; i++) {
+          reData[i].Options = reData[i]["dbo.Options"];
         }
-        setPollCards(merged);
-
+        console.log(reData)
+        setPollCards(reData);
       })
       .catch((error) => {
         console.log(error);

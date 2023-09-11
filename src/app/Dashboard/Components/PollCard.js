@@ -15,14 +15,14 @@ const PollCard = (props) => {
 
   const [value, setValue] = useState(1);
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
+    console.log("radio checked", e.target);
     setValue(e.target.value);
   };
   const submitVote = () => {
     var title = cardDetails.title
     
     axios
-      .post(BASE_URL + "submit/"+value+"/"+title)
+      .post(BASE_URL + "submit/"+value)
       .then((r) => {
         console.log(r.data[0]);
       })
@@ -53,7 +53,7 @@ const PollCard = (props) => {
                 {cardDetails.options.map((o,i) => {
                   return (
                     <div key={i} style={{ display: "block" }}>
-                      <Radio value={o.value}>{o.option}</Radio>
+                      <Radio value={o.option}>{o.option}</Radio>
                     </div>
                   );
                 })}

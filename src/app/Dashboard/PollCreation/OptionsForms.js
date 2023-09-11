@@ -10,12 +10,7 @@ const { RangePicker } = DatePicker;
   /*Start of Component*/
 }
 const OptionsForms = () => {
-  var date1 = new Date();
-  var date2 = new Date("09/20/2023");
-  var Difference_In_Time = date2.getTime() - date1.getTime();
-  var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  var intTime = parseInt(Difference_In_Days) + 1;
-  console.log("Total number of days between dates  <br>" + intTime);
+  
 
   var token = localStorage.getItem("UserToken");
   var decoded = jwt_decode(token);
@@ -27,7 +22,7 @@ const OptionsForms = () => {
     namedData.Time = TheDate.toLocaleString().split(",")[0];
     namedData.Options = pullForm;
     namedData.pollMaker = email;
-
+    // namedData.id=parseInt(Math.random()*100000);
     axios.post(BASE_URL + "addPolls/" + email, namedData).then((res) => {
       console.log("Success:", res);
       toast.success("Successfully Added your Poll!");
