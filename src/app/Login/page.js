@@ -15,10 +15,10 @@ const login = () => {
     }
     axios
       .post(url + "users/login", values)
-      .then(function (response) { 
-        console.log(response.data)
+      .then(function (response) {
+        console.log(response.data);
         try {
-           localStorage.setItem("UserToken",response.data) || ""
+          localStorage.setItem("UserToken", response.data) || "";
         } catch (error) {}
         Globals.logged = true;
         router.push("/Dashboard");

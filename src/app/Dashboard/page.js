@@ -5,7 +5,17 @@ import { Col, Row } from "antd";
 import Globals from "../../../Globals";
 import axios from "axios";
 const BASE_URL = "http://localhost:2000/";
+import axiosInstance from '../axiosInterceptorInstance';
 
+// try {
+//   var UserToken = localStorage.getItem("UserToken");
+//   if (UserToken) {
+//     Globals.logged = true;
+//     debugger
+//   } else {
+//     Globals.logged = false;
+//   }
+// } catch (error) {console.log(error)}
 const Dashboard = () => {
   const [pollCards, setPollCards] = useState([]);
 
@@ -14,7 +24,7 @@ const Dashboard = () => {
       .get(BASE_URL + "getPolls/")
       .then((data) => {
         const reData = data.data;
-          // var filtered;
+        // var filtered;
         // filtered = data.data.filter((f) => {
         //   return f.length;
         // });
@@ -25,7 +35,7 @@ const Dashboard = () => {
         for (i = 0; i < reData.length; i++) {
           reData[i].Options = reData[i]["dbo.Options"];
         }
-        console.log(reData)
+        console.log(reData);
         setPollCards(reData);
       })
       .catch((error) => {
@@ -56,6 +66,7 @@ const Dashboard = () => {
                     options={c.Options}
                     title={c.Title}
                     timeRemainning={c.Time}
+                    submited={c.submited}
                   />
                 </div>
               </Col>

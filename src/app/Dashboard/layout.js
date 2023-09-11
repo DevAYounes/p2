@@ -123,6 +123,7 @@ export default function RootLayout({ children }) {
             <Link
               onClick={() => {
                 Globals.logged = !Globals.logged;
+                localStorage.clear()
               }}
               className="btn btn-danger mx-0 "
               replace={true}
