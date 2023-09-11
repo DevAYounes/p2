@@ -30,11 +30,11 @@ export default function RootLayout({ children }) {
         router.push("/Dashboard");
         break;
       case "2":
-        router.push("/Dashboard/ActivePolls");
+        router.push("/Dashboard/PollCreation");
         break;
       case "3":
         if (isLogged) {
-          router.push("/Dashboard/MyPolls");
+          router.push("/Dashboard/PollCreation");
         } else {
           router.push("/Login");
         }

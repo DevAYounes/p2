@@ -66,7 +66,7 @@ const Dashboard = () => {
                     options={c.Options}
                     title={c.Title}
                     timeRemainning={c.Time}
-                    submited={c.submited}
+                    submited={c.Submited}
                   />
                 </div>
               </Col>

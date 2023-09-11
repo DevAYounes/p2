@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { Card, Radio, Button, Progress } from "antd";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import Globals from "../../../../Globals";
+
 const BASE_URL = "http://localhost:2000/";
 const PollCard = (props) => {
+  const router=useRouter()
   const isLogged = props.isLogged;
 
-  const cardDetails = {
+  
+  const [cardDetails,setcardDetails]=useState({
     pollMaker: props.pollMaker,
     description: props.description,
     options: props.options,
     title: props.title,
     timeRemainning: props.timeRemainning,
     submited: props.submited,
-  };
+  })
 
   const [value, setValue] = useState(1);
   const onChange = (e) => {
@@ -24,6 +29,8 @@ const PollCard = (props) => {
       .post(BASE_URL + "submit/" + value + "/" + cardDetails.title)
       .then((r) => {
         console.log(r.data[0]);
+        router.push("/")
+        Globals.logged=false;
       })
       .catch((e) => {
         console.log(e);
@@ -66,8 +73,10 @@ const PollCard = (props) => {
               Ends in {cardDetails.timeRemainning}
             </div>
             <Button
+
               onClick={() => {
                 submitVote();
+
               }}
               className="btn btn-primary px-3 py-1 mt-4"
               style={{ marginLeft: 125 }}
